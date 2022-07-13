@@ -1,0 +1,7 @@
+<h1>home component</h1>
+<h3>
+  <ng-container *ngIf="isLoggedIn(); then logged else notLogged"></ng-container>
+  <ng-template #logged>Is Logged In</ng-template>
+  <ng-template #notLogged>Is not Logged In</ng-template>
+</h3>
+<a href="https://github.com/login/oauth/authorize?client_id=eab26828c250ee98a077">Login</a>

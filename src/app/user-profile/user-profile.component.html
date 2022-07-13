@@ -1,0 +1,46 @@
+<div class="container-lg p-5" *ngIf="user">
+  <div class="d-flex flex-row">
+    <div class="d-flex flex-column">
+      <img [src]="user.avatar_url" alt="" class="rounded-circle" width="250px">
+      <h1>{{user.name}}</h1>
+      <div class="h3 text-muted">{{user.login}}</div>
+      <span>{{user.bio}}</span>
+      <div>
+        <i class="bi bi-people"></i>
+        <strong class="ms-2">{{user.followers}}</strong>
+        <span> followers        · </span>
+        <strong>{{user.following}}</strong>
+        <span> following</span>
+      </div>
+      <div *ngIf="user.location">
+        <i class="bi bi-geo-alt"></i>
+        <span class="ms-2">{{user.location}}</span>
+      </div>
+      <div>
+        <i class="bi bi-envelope"></i>
+        <span class="ms-2">{{user.email}}</span>
+      </div>
+    </div>
+    <div class="flex-fill ms-5 w-100">
+      <ul class="nav nav-tabs">
+        <li class="nav-item" *ngFor="let t of tabs">
+          <a class="nav-link" [class.active]="tab === t.name" [routerLink]="['.']" [queryParams]="{ tab: t.name }">{{t.description}}</a>
+        </li>
+      </ul>
+      <div class="tab-content mt-2">
+        <div class="tab-pane fade" [class.active]="tab === 'dados'" [class.show]="tab === 'dados'" tabindex="0">
+          <h1>dados</h1>
+        </div>
+        <div class="tab-pane fade" [class.active]="tab === 'repos'" [class.show]="tab === 'repos'" tabindex="1">
+          <app-repositories></app-repositories>
+        </div>
+        <div class="tab-pane fade" [class.active]="tab === 'seguidores'" [class.show]="tab === 'seguidores'" tabindex="2">
+          <app-followers></app-followers>
+        </div>
+        <div class="tab-pane fade" [class.active]="tab === 'seguindo'" [class.show]="tab === 'seguindo'" tabindex="3">
+          <app-followers [isGetFollowers]="false"></app-followers>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
