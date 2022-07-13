@@ -1,0 +1,24 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Nome</th>
+      <th scope="col">Descrição</th>
+      <th scope="col">Visibilidade</th>
+      <th scope="col">Ver mais</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let repo of repos; let i = index">
+      <th scope="row">{{i + 1}}</th>
+      <td>{{repo.name}}</td>
+      <td>{{repo.description}}</td>
+      <td>{{repo.visibility}}</td>
+      <td>
+        <a [href]="repo.html_url">
+          <i class="bi bi-box-arrow-up-right"></i>
+        </a>
+      </td>
+    </tr>
+  </tbody>
+</table>
