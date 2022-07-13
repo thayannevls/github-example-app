@@ -8,11 +8,17 @@ import { reposData } from './repos.data';
 })
 export class RepositoriesComponent implements OnInit {
   repos: any;
+  filteredRepos: any;
 
   constructor() { }
 
   ngOnInit(): void {
     this.repos = reposData;
+    this.filteredRepos = this.repos;
+  }
+
+  onSearchChange(event: HTMLInputElement) {
+    this.filteredRepos = this.repos.filter((repo: any) => repo.name.toLowerCase().includes(event.value.toLowerCase()));
   }
 
 }
