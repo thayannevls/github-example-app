@@ -1,5 +1,16 @@
-<div>
-    <input type="text" [(ngModel)]="name">
-    <button class="" (click)="createRepo()">Criar repositório</button>
-</div>
+<app-header></app-header>
 
+<div class="container custom-container">
+    <div class="col-md-12">
+      <h3 class="mb-3 text-center">Criar repositório</h3>
+  
+      <div class="input-group mb-3">
+        <input  type="text" class="form-control" placeholder="Nome do repositório...." [(ngModel)]="repo.name" name="repoName">
+    </div>
+  
+    <div class="form-group">
+        <button class="btn btn-success btn-lg btn-block" (click)="createRepo(repo)">Criar repositório</button>
+    </div>
+  
+    </div>
+  </div>

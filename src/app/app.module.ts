@@ -11,6 +11,7 @@ import { RepositoriesComponent } from './repositories/repositories.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { RepositoryCreateComponent } from './repository-create/repository-create.component';
 import { RepositoriesFiltersComponent } from './repositories-filters/repositories-filters.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { RepositoriesFiltersComponent } from './repositories-filters/repositorie
     RepositoriesComponent,
     RepositoryCreateComponent,
     RepositoriesFiltersComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,

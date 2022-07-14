@@ -8,15 +8,17 @@ import { GithubApiService } from '../shared/github-api.service';
   styleUrls: ['./repository-create.component.scss']
 })
 export class RepositoryCreateComponent implements OnInit {
-  @Input() name = ''
+  @Input() repo = { name: ''};
 
   constructor(private router: Router, private githubApi: GithubApiService) { }
 
   ngOnInit(): void {
   }
 
-  createRepo() {
-    console.log(this.name)
+  createRepo(repo: any) {
+    this.githubApi.createRepo(repo.name).subscribe(data => {
+      this.router.navigate(['/'])
+    })
   }
 
 }

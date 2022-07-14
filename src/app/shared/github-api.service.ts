@@ -30,7 +30,7 @@ export class GithubApiService {
 
   getUserRepos(): Observable<Repository> {
     return this.http.get<Repository>(
-      this.apiURL + '/user/repos',
+      this.apiURL + '/user/repos?per_page=60',
       this.httpOptions
     ).pipe(retry(1), catchError(this.handleError))
   }
@@ -53,6 +53,16 @@ export class GithubApiService {
     return this.http.get<Repository>(
       this.apiURL + '/user',
       this.httpOptions
+    ).pipe(retry(1), catchError(this.handleError))
+  }
+
+  createRepo(name: string): Observable<Repository> {
+    return this.http.post<Repository>(
+      this.apiURL + '/user/repos',
+      {
+        name,
+      },
+      this.httpOptions,
     ).pipe(retry(1), catchError(this.handleError))
   }
 
