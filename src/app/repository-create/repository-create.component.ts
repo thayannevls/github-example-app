@@ -8,7 +8,7 @@ import { GithubApiService } from '../shared/github-api.service';
   styleUrls: ['./repository-create.component.scss']
 })
 export class RepositoryCreateComponent implements OnInit {
-  @Input name = ''
+  @Input() name = ''
 
   constructor(private router: Router, private githubApi: GithubApiService) { }
 

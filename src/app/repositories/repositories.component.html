@@ -1,5 +1,48 @@
-<div class="mt-3 col-sm-6">
-  <input type="text" class="form-control" placeholder="Digite sua busca..." (input)="onSearchChange(search)" #search>
+<form #f="ngForm" (change)="onFormChange(f)">
+  <div class="row g-1">
+    <div class="h5">Busca:</div>
+    <div class="col-sm-4">
+      <input type="text" class="form-control" placeholder="Digite sua busca..." ngModel name="search">
+    </div>
+  </div>
+  <div class="row g-1 mt-1">
+    <div class="h5">Filtros e agregações:</div>
+    <div class="col-sm-2">
+      <label class="form-label">Forked?</label>
+      <select class="form-select" ngModel name="forked">
+        <option value="0" selected>---</option>
+        <option value="1">Sim</option>
+        <option value="2">Não</option>
+      </select>
+    </div>
+
+    <div class="col-sm-3">
+      <label class="form-label">Tem issues abertas?</label>
+      <select class="form-select" ngModel name="openIssues">
+        <option value="0" selected>---</option>
+        <option value="1">Sim</option>
+        <option value="2">Não</option>
+      </select>
+    </div>
+
+    <div class="col-sm-3">
+      <label class="form-label">Ordenar por</label>
+      <select class="form-select" ngModel name="order">
+        <option value="0" selected>---</option>
+        <option value="1">Ordem alfabética - [A-Z]</option>
+        <option value="2">Ordem alfabética - [Z-A]</option>
+        <option value="3">Nº de issues abertas - [Menor - Maior]</option>
+        <option value="4">Nº de issues abertas - [Maior - Menor]</option>
+        <option value="5">Nº de estrelas - [Menor - Maior]</option>
+        <option value="6">Nº de estrelas - [Maior - Menor]</option>
+      </select>
+    </div>
+  </div>
+</form>
+
+<div class="mt-2 mb-2">
+  <span>Total de issues abertas: </span>
+  <strong>{{ totalOpenIssues }}</strong>
 </div>
 
 <table class="table">
@@ -8,7 +51,10 @@
       <th scope="col">#</th>
       <th scope="col">Nome</th>
       <th scope="col">Descrição</th>
-      <th scope="col">Visibilidade</th>
+      <th scope="col">Forked?</th>
+      <th scope="col">Nº de estrelas</th>
+      <th scope="col">Nº de watchers</th>
+      <th scope="col">Nº de issues abertas</th>
       <th scope="col">Ver mais</th>
     </tr>
   </thead>
@@ -16,8 +62,15 @@
     <tr *ngFor="let repo of filteredRepos; let i = index">
       <th scope="row">{{i + 1}}</th>
       <td>{{repo.name}}</td>
-      <td>{{repo.description}}</td>
-      <td>{{repo.visibility}}</td>
+      <td class="text-truncate" style="max-width: 150px">{{repo.description}}</td>
+      <td>
+        <ng-container *ngIf="repo.fork; then forked else notForked"></ng-container>
+        <ng-template #forked>Sim</ng-template>
+        <ng-template #notForked>Não</ng-template>
+      </td>
+      <td>{{repo.stargazers_count}}</td>
+      <td>{{repo.watchers_count}}</td>
+      <td>{{repo.open_issues}}</td>
       <td>
         <a [href]="repo.html_url">
           <i class="bi bi-box-arrow-up-right"></i>
