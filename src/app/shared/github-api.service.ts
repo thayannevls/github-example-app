@@ -3,13 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators'
 
-interface Repository {
-  name: string,
-  description?: string,
-  visibility: 'publish' | 'private',
-  html_url: string
-}
-
 @Injectable({
   providedIn: 'root'
 })

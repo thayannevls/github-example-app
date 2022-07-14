@@ -22,45 +22,51 @@ export class RepositoriesComponent implements OnInit {
     })
   }
 
-  forked(repos: any, forked: any) {
+  forked(repos: Repository[], forked: boolean | string | null) {
     if (forked == null || forked === '') {
       return repos
     }
     return repos.filter((repo: any) => repo.fork == forked)
   }
 
-  hasOpenIssues(repos: any, hasOpenIssues: any) {
+  hasOpenIssues(repos: Repository[], hasOpenIssues: boolean | string | null) {
     if (hasOpenIssues == null || hasOpenIssues === '') {
       return repos
     }
-    return repos.filter((repo: any) => (hasOpenIssues && repo.open_issues) || (!hasOpenIssues  && !repo.open_issues))
+    return repos.filter((repo: Repository) => (hasOpenIssues && repo.open_issues) || (!hasOpenIssues  && !repo.open_issues))
   }
 
-  compareByAttribute(repoA: any, repoB: any, attr: string, order: 'asc' | 'desc') {
-    if (order == 'asc') {
-      return repoA[attr] > repoB[attr] ? 1 : -1
+  compareByAttribute(repoA: Repository, repoB: Repository, attr: keyof Repository, order: 'asc' | 'desc') {
+    if (!attr) {
+      return 0
     }
-    return repoA[attr] > repoB[attr] ? -1 : 1
+    if (order == 'asc') {
+      //@ts-ignore
+      return repoA[attr]?.toString().toLowerCase() > repoB[attr].toString().toLowerCase() ? 1 : -1
+    }
+    if (order == 'desc') {
+      //@ts-ignore
+      return repoA[attr].toString().toLowerCase() > repoB[attr].toString().toLowerCase() ? -1 : 1
+    }
+    return 0
   }
 
   handleFilters(filters: any) {
     const {isForked, hasOpenIssues, search, orderBy} = filters
-
     const repositories = this.repos
 
-    const filteredBySearch = repositories.filter((repo: any) => repo.name.toLowerCase().includes(search.toLowerCase()));
+    const filteredBySearch = repositories.filter((repo: Repository) => repo.name.toLowerCase().includes(search.toLowerCase()));
     const filteredByForked = this.forked(filteredBySearch, isForked)
     const filteredByHasOpenIssues = this.hasOpenIssues(filteredByForked, hasOpenIssues)
 
 
-    this.filteredRepos = orderBy ? filteredByHasOpenIssues.sort((repoA:any, repoB:any) => this.compareByAttribute(repoA, repoB, orderBy.Attr, orderBy.order)) : filteredByHasOpenIssues
+    this.filteredRepos = orderBy ? filteredByHasOpenIssues.sort((repoA:Repository, repoB:Repository) => this.compareByAttribute(repoA, repoB, orderBy.attr, orderBy.order)) : filteredByHasOpenIssues
 
-    console.log(filters)
     this.calculateTotalOpenIssues();
   }
 
   calculateTotalOpenIssues() {
-    this.totalOpenIssues = this.filteredRepos.reduce((accumulated: any, currentRepo: any) => {
+    this.totalOpenIssues = this.filteredRepos.reduce((accumulated: number, currentRepo: Repository) => {
       return currentRepo.open_issues + accumulated
     }, 0);
   }

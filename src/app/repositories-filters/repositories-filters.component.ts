@@ -23,7 +23,7 @@ export class RepositoriesFiltersComponent implements OnInit {
 
   onFormChange(f: NgForm) {
     const { forked, openIssues, orderBy, search } = f.value;
-    console.log(orderBy)
+    console.log('>', orderBy)
     this.filterChangeEvent.emit({
       search,
       isForked: forked,

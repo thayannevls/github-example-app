@@ -5,7 +5,8 @@
     "outDir": "./out-tsc/spec",
     "types": [
       "jasmine"
-    ]
+    ],
+    "typeRoots": ["./src/app/global.d.ts"]
   },
   "files": [
     "src/test.ts",
