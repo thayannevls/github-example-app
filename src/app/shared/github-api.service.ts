@@ -22,7 +22,7 @@ export class GithubApiService {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
       // add github token
-      authorization: 'token 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'
+      authorization: 'token <GITHUB_TOKEN>'
     }),
   };
 
@@ -38,6 +38,13 @@ export class GithubApiService {
   getUserFollowers(): Observable<Repository> {
     return this.http.get<Repository>(
       this.apiURL + '/user/followers',
+      this.httpOptions
+    ).pipe(retry(1), catchError(this.handleError))
+  }
+
+  getUserFollows(): Observable<Repository> {
+    return this.http.get<Repository>(
+      this.apiURL + '/user/following',
       this.httpOptions
     ).pipe(retry(1), catchError(this.handleError))
   }

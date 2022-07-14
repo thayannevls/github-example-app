@@ -14,10 +14,15 @@ export class FollowersComponent implements OnInit {
   constructor(private githubApi: GithubApiService) { }
 
   ngOnInit(): void {
-    this.githubApi.getUserFollowers().subscribe(data => {
-      this.followers = data
-    })
-    this.followers = followersData;
+    if (this.isGetFollowers) {
+      this.githubApi.getUserFollowers().subscribe(data => {
+        this.followers = data
+      })
+    } else {
+      this.githubApi.getUserFollows().subscribe(data => {
+        this.followers = data
+      })
+    }
   }
 
 }

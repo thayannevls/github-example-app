@@ -30,7 +30,7 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-      this.tab = params['tab'];
+      this.tab = params['tab'] || "repos";
     });
 
     this.githubApi.getUser().subscribe(data => {
