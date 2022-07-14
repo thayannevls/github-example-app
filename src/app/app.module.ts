@@ -10,6 +10,7 @@ import { FollowersComponent } from './followers/followers.component';
 import { RepositoriesComponent } from './repositories/repositories.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { RepositoryCreateComponent } from './repository-create/repository-create.component';
+import { RepositoriesFiltersComponent } from './repositories-filters/repositories-filters.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { RepositoryCreateComponent } from './repository-create/repository-create
     UserProfileComponent,
     FollowersComponent,
     RepositoriesComponent,
-    RepositoryCreateComponent
+    RepositoryCreateComponent,
+    RepositoriesFiltersComponent,
   ],
   imports: [
     BrowserModule,

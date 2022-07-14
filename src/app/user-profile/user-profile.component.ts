@@ -13,10 +13,6 @@ export class UserProfileComponent implements OnInit {
   tab: any;
   tabs = [
     {
-      name: 'dados',
-      description: 'Dados pessoais'
-    },
-    {
       name: 'repos',
       description: 'Repositórios'
     },

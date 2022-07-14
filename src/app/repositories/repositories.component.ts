@@ -1,14 +1,12 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { GithubApiService } from '../shared/github-api.service';
-import { NgForm } from '@angular/forms';
-import { reposData } from './repos.data';
 
 @Component({
   selector: 'app-repositories',
   templateUrl: './repositories.component.html',
   styleUrls: ['./repositories.component.scss']
 })
+
 export class RepositoriesComponent implements OnInit {
   repos: any;
   filteredRepos: any;
@@ -24,54 +22,40 @@ export class RepositoriesComponent implements OnInit {
     })
   }
 
-  onFormChange(f: NgForm) {
-    let result = [...this.repos];
-    const { forked, openIssues, order, search } = f.value;
-
-    result = result.filter((repo: any) => repo.name.toLowerCase().includes(search.toLowerCase()));
-
-    const compareAlphabeticOrder = (repoA: any, repoB: any): number => {
-      return repoA.name.localeCompare(repoB.name);
+  forked(repos: any, forked: any) {
+    if (forked === '') {
+      return repos
     }
+    return repos.filter((repo: any) => repo.fork == forked)
+  }
 
-    const compareNumber = (property : string) => {
-      return (repoA: any, repoB: any): number => {
-        return repoA[property] > repoB[property] ? 1 : -1;
-      }
+  hasOpenIssues(repos: any, hasOpenIssues: any) {
+    if (hasOpenIssues === '') {
+      return repos
     }
+    return repos.filter((repo: any) => (hasOpenIssues && repo.open_issues) || (!hasOpenIssues  && !repo.open_issues))
+  }
 
-    forked === "1" ?
-      result = result.filter((repo: any) => repo.fork)
-    : 
-      forked === "2" ?
-        result = result.filter((repo: any) => !repo.fork)
-      :
-        null;
+  compareByAttribute(repoA: any, repoB: any, attr: string, order: 'asc' | 'desc') {
+    if (order == 'asc') {
+      return repoA[attr] > repoB[attr] ? 1 : -1
+    }
+    return repoA[attr] > repoB[attr] ? -1 : 1
+  }
 
-    openIssues === "1" ?
-      result = result.filter((repo: any) => repo.open_issues)
-    :
-      openIssues === "2" ?
-        result = result.filter((repo: any) => !repo.open_issues)
-      :
-        null;
+  handleFilters(filters: any) {
+    const {isForked, hasOpenIssues, search, orderBy} = filters
 
-    order === "1" ?
-      result.sort(compareAlphabeticOrder)
-    : order === "2" ?
-        result.sort(compareAlphabeticOrder).reverse()
-      : order === "3" ?
-          result.sort(compareNumber("open_issues"))
-        : order === "4" ?
-            result.sort(compareNumber("open_issues")).reverse()
-          : order === "5" ?
-              result.sort(compareNumber("stargazers_count"))
-            : order === "6" ?
-                result.sort(compareNumber("stargazers_count")).reverse()
-              :
-                null;
-                    
-    this.filteredRepos = result;
+    const repositories = this.repos
+
+    const filteredBySearch = repositories.filter((repo: any) => repo.name.toLowerCase().includes(search.toLowerCase()));
+    const filteredByForked = this.forked(filteredBySearch, isForked)
+    const filteredByHasOpenIssues = this.hasOpenIssues(filteredByForked, hasOpenIssues)
+
+
+    this.filteredRepos = orderBy ? filteredByHasOpenIssues.sort((repoA:any, repoB:any) => this.compareByAttribute(repoA, repoB, orderBy.Attr, orderBy.order)) : filteredByHasOpenIssues
+
+    console.log(filters)
     this.calculateTotalOpenIssues();
   }
 

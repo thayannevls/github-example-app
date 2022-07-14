@@ -22,7 +22,7 @@ export class GithubApiService {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
       // add github token
-      authorization: 'token <GITHUB_TOKEN>'
+      authorization: 'token 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'
     }),
   };
 
