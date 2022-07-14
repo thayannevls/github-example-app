@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { GithubApiService } from '../shared/github-api.service';
 import { userData } from './user-profile.data';
 
 @Component({
@@ -29,15 +30,17 @@ export class UserProfileComponent implements OnInit {
     }
   ];
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private githubApi: GithubApiService) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.tab = params['tab'];
     });
 
-    this.user = userData;
-
+    this.githubApi.getUser().subscribe(data => {
+      this.user = data
+    })
+    
     console.log(this.tab);
   }
 

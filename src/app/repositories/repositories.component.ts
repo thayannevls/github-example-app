@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { GithubApiService } from '../shared/github-api.service';
 import { reposData } from './repos.data';
 
 @Component({
@@ -10,11 +12,13 @@ export class RepositoriesComponent implements OnInit {
   repos: any;
   filteredRepos: any;
 
-  constructor() { }
+  constructor(private githubApi: GithubApiService) { }
 
   ngOnInit(): void {
-    this.repos = reposData;
-    this.filteredRepos = this.repos;
+    this.githubApi.getUserRepos().subscribe(data => {
+      this.repos = data
+      this.filteredRepos = data
+    })
   }
 
   onSearchChange(event: HTMLInputElement) {
