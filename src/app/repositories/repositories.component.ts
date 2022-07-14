@@ -23,14 +23,14 @@ export class RepositoriesComponent implements OnInit {
   }
 
   forked(repos: any, forked: any) {
-    if (forked == null) {
+    if (forked == null || forked === '') {
       return repos
     }
     return repos.filter((repo: any) => repo.fork == forked)
   }
 
   hasOpenIssues(repos: any, hasOpenIssues: any) {
-    if (hasOpenIssues == null) {
+    if (hasOpenIssues == null || hasOpenIssues === '') {
       return repos
     }
     return repos.filter((repo: any) => (hasOpenIssues && repo.open_issues) || (!hasOpenIssues  && !repo.open_issues))
