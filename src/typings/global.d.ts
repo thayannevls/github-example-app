@@ -8,4 +8,11 @@ declare global {
         open_issues: number,
         stargazers_cout: number
     }  
+
+    interface User {
+        login: string
+        avatar_url: string
+        url: string
+        html_url: string
+    }
 }

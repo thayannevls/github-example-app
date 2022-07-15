@@ -28,15 +28,15 @@ export class GithubApiService {
     ).pipe(retry(1), catchError(this.handleError))
   }
 
-  getUserFollowers(): Observable<Repository> {
-    return this.http.get<Repository>(
+  getUserFollowers(): Observable<User[]> {
+    return this.http.get<User[]>(
       this.apiURL + '/user/followers',
       this.httpOptions
     ).pipe(retry(1), catchError(this.handleError))
   }
 
-  getUserFollows(): Observable<Repository> {
-    return this.http.get<Repository>(
+  getUserFollows(): Observable<User[]> {
+    return this.http.get<User[]>(
       this.apiURL + '/user/following',
       this.httpOptions
     ).pipe(retry(1), catchError(this.handleError))
