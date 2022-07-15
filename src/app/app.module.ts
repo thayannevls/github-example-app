@@ -13,6 +13,7 @@ import { RepositoryCreateComponent } from './repository-create/repository-create
 import { RepositoriesFiltersComponent } from './repositories-filters/repositories-filters.component';
 import { HeaderComponent } from './header/header.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { UserInfoComponent } from './user-info/user-info.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
     RepositoryCreateComponent,
     RepositoriesFiltersComponent,
     HeaderComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    UserInfoComponent
   ],
   imports: [
     BrowserModule,
