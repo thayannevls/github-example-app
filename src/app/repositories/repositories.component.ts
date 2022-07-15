@@ -51,16 +51,30 @@ export class RepositoriesComponent implements OnInit {
     return 0
   }
 
+  search(repos: Repository[], text: string) {
+    return repos.filter((repo: Repository) => repo.name.toLowerCase().includes(text.toLowerCase()));
+  }
+
+  composeFilters(...fns : any[]) {
+    return (...args: any[]) => {
+      return (repos: Repository[]) => {
+        return fns.reduceRight((currentFilteredRepos, currentFilterFunction, currentIndex) => {
+          return currentFilterFunction(currentFilteredRepos, args[currentIndex])
+        }, repos)
+      }
+    }
+  }
+
   handleFilters(filters: any) {
-    const {isForked, hasOpenIssues, search, orderBy} = filters
-    const repositories = this.repos
+    const {isForked, hasOpenIssues, search: searchText, orderBy} = filters
 
-    const filteredBySearch = repositories.filter((repo: Repository) => repo.name.toLowerCase().includes(search.toLowerCase()));
-    const filteredByForked = this.forked(filteredBySearch, isForked)
-    const filteredByHasOpenIssues = this.hasOpenIssues(filteredByForked, hasOpenIssues)
+    const filtered = this.composeFilters(
+      this.search,
+      this.forked,
+      this.hasOpenIssues
+    )(searchText, isForked, hasOpenIssues)(this.repos);
 
-
-    this.filteredRepos = orderBy ? filteredByHasOpenIssues.sort((repoA:Repository, repoB:Repository) => this.compareByAttribute(repoA, repoB, orderBy.attr, orderBy.order)) : filteredByHasOpenIssues
+    this.filteredRepos = orderBy ? filtered.sort((repoA:Repository, repoB:Repository) => this.compareByAttribute(repoA, repoB, orderBy.attr, orderBy.order)) : filtered
 
     this.calculateTotalOpenIssues();
   }
