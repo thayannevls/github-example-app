@@ -22,3 +22,11 @@ Exemplos usados e documentação:
 
 - [Introdução a conceitos básicos](https://angular.io/guide/architecture);
 - [Data binding e diretivas](https://stackblitz.com/edit/angular-ivy-yy4vo6);
+
+## Desenvolvedores
+
+* [Débora Leda](https://github.com/deboraleda)
+* [Felipe Emerson](https://github.com/felipeemerson)
+* [Franciclaudio Dantas](https://github.com/claudiodantas)
+* [Igor Seabra](https://github.com/igorseabra4)
+* [Thayanne Sousa](https://github.com/thayannevls)
