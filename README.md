@@ -23,6 +23,11 @@ Exemplos usados e documentação:
 - [Introdução a conceitos básicos](https://angular.io/guide/architecture);
 - [Data binding e diretivas](https://stackblitz.com/edit/angular-ivy-yy4vo6);
 
+## Links úteis
+
+- [Angular no GitHub](https://github.com/angular);
+- [Principais comandos do Angular CLI](https://angular.io/cli);
+
 ## Desenvolvedores
 
 * [Débora Leda](https://github.com/deboraleda)
