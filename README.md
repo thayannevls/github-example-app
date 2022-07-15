@@ -1,27 +1,19 @@
 # GithubExampleApp
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.5.
+Aplicação em Angular de exemplo para a disciplina Programação Funcional 2021.2e.
 
-## Development server
+## Rodando localmente
+Passos:
+1.  Instale o [Node.js](https://nodejs.org/en/);
+2. Instale o Angular CLI via npm: `npm install -g @angular/cli`;
+3. Instale as dependências: `npm i`;
+4. Gere um token pessoal da API do GitHub e o insira no arquivo `./src/app/shared/github-api.service.ts` na linha 18: `authorization: 'token <GITHUB_TOKEN>'`;
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+5. Execute o comando: `ng serve`;
+6. Vá para `http://localhost:4200/`.
 
-## Code scaffolding
+## Links da apresentação e dos exemplos
+Apresentação: https://docs.google.com/presentation/d/1zhuUp7knYAspXb3wXxJm6PwkfkLidniVszaBt5ZK_Xo/edit
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Exemplos:
+- [Data binding e diretivas](https://stackblitz.com/edit/angular-ivy-yy4vo6);
